@@ -1,0 +1,28 @@
+const { use } = require('express/lib/application');
+app.get('/', (req, res) => {
+    res.send('Hello API GET!!')
+  })
+
+app.post('/', (req, res) => {
+    res.send('Hello API POST!!')
+  })
+
+//localhost:3001/saludar?nombre=Yarleidy
+app.get('/saludar', (req, res) => {
+    console.log('req', req);
+    res.send(`Hola ${req.query.nombre}`);
+});
+
+//Enviar parámetros en el body
+app.post('/sumar', (req, res) => {
+    console.log('req', req);
+    const suma = req.body.numero1 + req.body.numero2;
+    res.send(`La suma es ${suma}`)
+  })
+
+  //http://localhost:3001/info/43974808/yaloja
+app.post('/info/:idUser/:idAccount', (req, res) => {
+    console.log('req', req);
+    res.send(`ID usuario ${req.params.idUser}, cuenta ${req.params.idAccount}`)
+})
+
