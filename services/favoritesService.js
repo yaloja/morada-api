@@ -1,6 +1,9 @@
 const FavoriteModel = require('./../models/favoriteModel');
 const responseError = require("../utilities/responseError");
 const responseOk = require("../utilities/responseOK");
+require ('../connection/mongoconn');
+const mongoose = require('mongoose');
+const {ObjectId} = mongoose.Types;
 
 const addFavorite = async (favoriteData) => {
     try {
@@ -14,11 +17,39 @@ const addFavorite = async (favoriteData) => {
   
   const getFavorites = async (userId) => {
     try {
-      const favorites = await FavoriteModel.find({ userId: userId });
-      return responseOk({ favorites });
-    } catch (error) {
-      return responseError(500, "Server error");
+      const favoritesByUser = await FavoriteModel.aggregate(
+        [
+            {
+                $match: {
+                    userId: ObjectId(userId)
+                }
+            },
+            {
+                $lookup: {
+                  from: 'properties',
+                  localField: 'propertyId',
+                  foreignField: '_id',
+                  as: 'property'
+                }
+            },
+            {
+                $unwind: '$property'
+            },
+            {
+                $project: {
+                    property: '$property', 
+                }
+            }
+        ]);
+    if (favoritesByUser.length > 0) {
+        return responseOk({ favoritesByUser });
     }
+    return responseError(404, 'There are no favorite properties for user:  '+ id);
+
+} catch (error) {
+    console.log(error);
+    return responseError(500, 'Server error');
+}
   };
 
 
