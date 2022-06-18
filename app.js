@@ -1,9 +1,12 @@
 const express = require('express');
 const app = express();
+const cors = require ('cors');
 require('./connection/mongoconn');
 require('dotenv').config();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false}));
+app.use('/static', express.static('public'));
+app.use(cors());
 const port = 3001;
 
 const usersRoutes = require('./routes/users');
