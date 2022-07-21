@@ -18,6 +18,12 @@ app.use('/properties', propertiesRoutes);
 const favoritesRoutes = require('./routes/favorites');
 app.use('/favorites', favoritesRoutes);
 
+const citiesRoutes = require('./routes/cities');
+app.use('/cities', citiesRoutes);
+
+const zonesRoutes = require('./routes/zones');
+app.use('/zones', zonesRoutes);
+
 app.listen(port, () => {
   console.log('Server running');
 })

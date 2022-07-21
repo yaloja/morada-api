@@ -4,8 +4,14 @@ const { Schema } = mongoose;
 const PropertySchema = new Schema(
     {
         title: String,
-        city: Number,
-        zone: Number,
+        city: {
+            type: Schema.Types.ObjectId,
+            ref: 'cities'
+        },
+        zone: {
+            type: Schema.Types.ObjectId,
+            ref: 'zones'
+        },
         propertyType: Number,
         businessType: Number,
         mainImage: String,

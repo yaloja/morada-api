@@ -1,8 +1,9 @@
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
 const UserModel = require('./../models/userModel');
 const responseError = require("../utilities/responseError");
 const responseOk = require("../utilities/responseOK");
-const jwt = require('jsonwebtoken');
-const bcrypt = require('bcrypt');
+
 
 const auth = async (email, password) => {
   try {
