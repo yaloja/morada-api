@@ -15,7 +15,9 @@ const addProperty = async (propertyData) => {
 const getProperties = async (filter) => {
   try {
     const query = buildQueryFilter(filter);
-    const properties = await PropertyModel.find(query);
+    const properties = await PropertyModel.find(query)
+    .populate("city", "name")
+    .populate("zone", "name");
     return responseOk({ properties });
   } catch (error) {
     return responseError(500, "Server error");
@@ -41,8 +43,8 @@ const buildQueryFilter = (filter) => {
 const getProperty = async (id) => {
   try {
     const property = await PropertyModel.findById(id)
-    .populate("city", "code name")
-    .populate("zone", "code name")
+    .populate("city", "name")
+    .populate("zone", "name")
     .populate("ownerId", "name email phone")
     .exec();
     if (property) {
