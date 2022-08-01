@@ -14,7 +14,7 @@ const {
     }
   };
   
-  const getAll = async (req, res) => {
+  const getPropertiesByParams = async (req, res) => {
     try {
         const filter = req.query;
         const { statusHttp, response } = await getProperties(filter);
@@ -56,7 +56,7 @@ const {
 
   module.exports = {
     create,
-    getAll,
+    getPropertiesByParams,
     getDetail,
     uploadImage
   };

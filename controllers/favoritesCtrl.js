@@ -1,6 +1,7 @@
 const {
     addFavorite,
-    getFavorites
+    getFavorites,
+    getFavorite
   } = require("./../services/favoritesService");
   
   const attach = async (req, res) => {
@@ -23,7 +24,18 @@ const {
     }
   };
   
+  const getFavoriteByParams = async (req, res) => {
+    try {
+        const favorite = req.body;
+        const { statusHttp, response } = await getFavorite(favorite.userId, favorite.propertyId);
+        res.status(statusHttp).json(response);
+    } catch (error) {
+      res.status(500).send(error);
+    }
+  };
+  
   module.exports = {
     attach,
-    getAll
+    getAll,
+    getFavoriteByParams
   };

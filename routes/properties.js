@@ -2,13 +2,13 @@ const express = require("express");
 const router = express.Router();
 const {
   create,
-  getAll,
+  getPropertiesByParams,
   getDetail,
   uploadImage,
 } = require("./../controllers/propertiesCtrl");
 
 router.post("/", create);
-router.get("/", getAll);
+router.get("/", getPropertiesByParams);
 router.get("/:id", getDetail);
 router.post("/upload", uploadImage)
 
